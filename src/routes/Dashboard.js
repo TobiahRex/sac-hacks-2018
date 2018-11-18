@@ -3,6 +3,7 @@
 import Title from '../views/Title/Title';
 import Crud from '../views/Crud/Crud';
 import Sankey from '../views/Sankey';
+import Gateway from '../views/Gateway';
 
 const dashboardRoutes = [
   {
@@ -14,6 +15,11 @@ const dashboardRoutes = [
     path: '/crud',
     name: 'Crud',
     component: Crud
+  },
+  {
+    path: '/gateway',
+    name: 'Gateway',
+    component: Gateway
   },
   {
 
