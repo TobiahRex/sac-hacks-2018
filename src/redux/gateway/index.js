@@ -52,6 +52,6 @@ export const gatewayReducer = createReducer(INITIAL_STATE, {
   [Types.GET_DESTINATIONS_SUCCESS]: getDestinationsSuccess,
   [Types.GET_MAJORS_SUCCESS]: getMajorsSuccess,
   [Types.GET_COURSES_SUCCESS]: getCoursesSuccess,
-  [Types.GET_ORIGIN_SUCCESS]: getOriginsSuccess,
+  [Types.GET_ORIGINS_SUCCESS]: getOriginsSuccess,
   [Types.SET_ORIGIN_SCHOOL]: setOriginSchool,
 });
