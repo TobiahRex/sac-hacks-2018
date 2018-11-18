@@ -82,7 +82,7 @@ class Dashboard extends React.Component {
           ref={c => {
             this.ref_mainPanel = c;
           }}
-          style={{  }}
+          // style={{  }}
         >
           <Header {...this.props} />
           <Switch>
