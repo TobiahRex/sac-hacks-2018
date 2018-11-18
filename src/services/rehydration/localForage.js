@@ -1,8 +1,8 @@
 import localForage from 'localforage';
 
 const reduxLocalForage = localForage.createInstance({
-  name: 'React16-RR4-Boilerplate',
-  storeName: 'React16-RR4-Boilerplate-redux-persist',
+  name: 'SacHacks-2018',
+  storeName: 'SacHacks-2018-redux-persist',
   description: 'Contains persisted values for redux store.'
 });
 

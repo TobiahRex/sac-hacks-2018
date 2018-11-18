@@ -2,7 +2,7 @@ import { createActions, createReducer } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
-  getOriginsCodes: null,
+  getOriginCodes: null,
   getDestinations: ['origin'],
   getMajors: ['origin', 'destination'],
   getCourses: ['origin', 'destination', 'major'],
@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   getDestinationsSuccess: ['destinations'],
   getMajorsSuccess: ['majors'],
   getCoursesSuccess: ['data'],
-  getOriginsSuccess: ['originCodes'],
+  getOriginCodesSuccess: ['originCodes'],
 });
 
 export const GatewayTypes = Types;
@@ -39,7 +39,7 @@ const getCoursesSuccess = (state, { data }) => ({
   data,
 });
 
-const getOriginsSuccess = (state, { originCodes }) => ({
+const getOriginCodesSuccess = (state, { originCodes }) => ({
   ...state,
   originCodes,
 });
@@ -48,5 +48,5 @@ export const gatewayReducer = createReducer(INITIAL_STATE, {
   [Types.GET_DESTINATIONS_SUCCESS]: getDestinationsSuccess,
   [Types.GET_MAJORS_SUCCESS]: getMajorsSuccess,
   [Types.GET_COURSES_SUCCESS]: getCoursesSuccess,
-  [Types.GET_ORIGINS_SUCCESS]: getOriginsSuccess,
+  [Types.GET_ORIGIN_CODES_SUCCESS]: getOriginCodesSuccess,
 });

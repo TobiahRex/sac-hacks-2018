@@ -8,7 +8,7 @@ import { persistStore } from 'redux-persist';
 import RehydrationServices from '../services/rehydration';
 import rootSaga from '../sagas';
 import rootReducer from './rootReducer';
-import thingActions from './thing';
+import gatewayActions from './gateway';
 import apiActions from './api';
 
 export const history = createHistory();
@@ -30,7 +30,7 @@ function configureStoreProd(initialState) {
   sagaMiddleware.run(rootSaga);
 
   store.dispatch(apiActions.fetching());
-  store.dispatch(thingActions.getAllThings());
+  // store.dispatch(thingActions.getAllThings());
   const persistor = persistStore(store);
 
   return {
@@ -72,7 +72,7 @@ function configureStoreDev(initialState) {
   }
 
   store.dispatch(apiActions.fetching());
-  store.dispatch(thingActions.getAllThings());
+  store.dispatch(gatewayActions.getOriginCodes());
 
   return {
     store,

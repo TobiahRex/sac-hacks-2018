@@ -7,7 +7,7 @@ export default function* create(api) {
 
   if (response.ok) {
     yield [
-      put(gatewayActions.getOriginsSuccess(response.data)),
+      put(gatewayActions.getOriginCodesSuccess(response.data.data.originSchools)),
       put(apiActions.apiSuccess()),
     ];
   } else {
