@@ -11,7 +11,7 @@ class Gateway extends React.Component {
   static propTypes = {
     showNotification: func.isRequired,
     courses: arrayOf(any),
-    origins: arrayOf(string),
+    originCodes: arrayOf(string),
     destinations: arrayOf(string),
     majors: arrayOf(string),
     apiStatus: shape({
@@ -28,7 +28,7 @@ class Gateway extends React.Component {
   };
   static defaultProps = {
     courses: [],
-    origins: [],
+    originCodes: [],
     destinations: [],
     majors: [],
   };
@@ -42,7 +42,7 @@ class Gateway extends React.Component {
   }
 
   renderOptions = options => options.map(({ name, code }) => (
-    <option key={Buffer.from(code, 'utf8').toString('base64')} value={name} dataCode={code}>
+    <option key={Buffer.from(code, 'utf8').toString('base64')} value={code}>
       {name}
     </option>));
 
@@ -73,7 +73,7 @@ class Gateway extends React.Component {
 
       const {
         courses,
-        origins: originSchools,
+        originCodes: originCodes,
         destinations: destinationSchools,
         majors: destinationMajors,
       } = this.props;
@@ -90,7 +90,7 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A College</option>
-              {this.renderOptions(originSchools)};
+              {this.renderOptions(originCodes)};
             </select>
           </div>
           <br />
@@ -130,8 +130,9 @@ class Gateway extends React.Component {
 }
 
 export default connect(
-  ({ api: apiStatus }) => ({
+  ({ api: apiStatus, gateway }) => ({
     apiStatus,
+    originCodes: [...gateway.originCodes],
   }),
   dispatch => ({
     redux: {
