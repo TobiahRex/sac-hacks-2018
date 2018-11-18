@@ -95,6 +95,8 @@
   },
   "dependencies": {
     "bootstrap": "3.3.7",
+    "echarts": "^4.2.0-rc.2",
+    "echarts-for-react": "^2.0.15-beta.0",
     "localforage": "^1.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

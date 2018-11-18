@@ -1,6 +1,6 @@
 {
   "short_name": "React 16 Template",
-  "name": "React 16 Template",
+  name: "React 16 Template",
   "icons": [
     {
       "src": "/assets/images/favicon.ico",

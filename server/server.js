@@ -17,9 +17,9 @@ import api from './api';
 // ---------------------------- CONFIG -----------------------------------------
 mongoose.Promise = Promise;
 dotenv.config({ silent: true });
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3000;
 const MONGO =
-  process.env.MONGODB_URI || 'mongodb://localhost/react16-boilerplate';
+  process.env.MONGODB_URI || 'mongodb://localhost/sac-hacks-2018';
 const BUILD = process.env.NODE_ENV || 'development';
 const app = express();
 const server = new http.Server(app);

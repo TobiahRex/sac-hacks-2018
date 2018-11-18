@@ -438,7 +438,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   background: rgba(203, 203, 210, 0.15);
   position: relative;
   float: right;
-  width: calc(100% - 260px); }
+  width: calc(100% - 200px); }
   .main-panel > .content {
     padding: 30px 15px;
     min-height: calc(100% - 123px); }
@@ -2605,7 +2605,7 @@ body > .navbar-collapse[data-color="purple"]:after {
     display: block;
     top: 0;
     height: 100%;
-    width: 260px;
+    width: 200px;
     right: 0;
     left: auto;
     z-index: 1032;

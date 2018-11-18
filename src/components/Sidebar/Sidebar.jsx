@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks';
 import imagine from '../../assets/images/sidebar-5.jpg';
-import logo from '../../assets/images/reactlogo.png';
+import logo from '../../assets/images/calixfer-logo-main.png';
 import dashboardRoutes from '../../routes/Dashboard';
 
 class Sidebar extends Component {
@@ -39,22 +39,15 @@ class Sidebar extends Component {
         className="sidebar"
         data-color="black"
         data-image={imagine}
+        style={{ width: 200 }}
       >
         <div className="sidebar-background" style={sidebarBackground} />
         <div className="logo">
           <a
             href="https://github.com/tobiahrex/react16-boilerplate"
-            className="simple-text logo-mini"
-          >
-            <div className="logo-img">
-              <img src={logo} alt="logo_image" />
-            </div>
-          </a>
-          <a
-            href="https://github.com/tobiahrex/react16-boilerplate"
             className="simple-text logo-normal"
           >
-            React Template
+            <img src={logo} alt="logo_image" style={{ maxWidth: '100%' }} />
           </a>
         </div>
         <div className="sidebar-wrapper">

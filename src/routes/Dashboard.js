@@ -1,6 +1,8 @@
 import Title from '../views/Title/Title';
 import Cryptos from '../views/Cryptos/Cryptos';
 import Crud from '../views/Crud/Crud';
+// import Sunburst from '../views/Sunburst';
+import Sankey from '../views/Sankey';
 
 const dashboardRoutes = [
   {
@@ -8,15 +10,22 @@ const dashboardRoutes = [
     name: 'Home',
     component: Title
   },
-  {
-    path: '/cryptos',
-    name: 'Cryptos',
-    component: Cryptos
-  },
+  // {
+  //   path: '/cryptos',
+  //   name: 'Cryptos',
+  //   component: Cryptos
+  // },
   {
     path: '/crud',
     name: 'Crud',
     component: Crud
+  },
+  {
+
+    path: '/sankey',
+    name: 'Sankey',
+    component: Sankey,
+
   },
   {
     redirect: true,

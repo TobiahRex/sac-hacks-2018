@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import HeaderLinks from './HeaderLinks';
 import dashboardRoutes from '../../routes/Dashboard';
+import logo from '../../assets/images/calixfer-long-logo.png';
 
 class Header extends Component {
   constructor(props) {
@@ -64,9 +65,26 @@ class Header extends Component {
   render() {
     return (
       <Navbar fluid>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="/">{this.getBrand()}</a>
+        <Navbar.Header style={{ height: 100, width: '100%' }}>
+          <Navbar.Brand style={{
+            // display: 'flex',
+            // justifyContent: 'space-between',
+            // alignItems: 'center',
+            // width: '100%',
+            // height: '100%',
+          }}
+          >
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+            >
+              <img src={logo} alt="logo" style={{ maxWidth: '20%' }} />
+              <a href="/">{this.getBrand()}</a>
+            </div>
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>
