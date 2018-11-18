@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SelectValidation from 'react-validation/build/select';
 import apiActions from '../../redux/api';
 import gatewayActions from '../../redux/gateway';
 
@@ -47,105 +46,120 @@ class Gateway extends React.Component {
       {name}
     </option>));
 
-  render() {
-    const {
-      originSchool,
-      // destinationSchool
-    } = this.state;
+    handleOnChange = (e) => {
+      const apiQuery;
+      switch(e.target.name) {
+        'origin': {
+          apiQuery = () => this.props.redux.getDestinations(e.target.value);
+        }; break;
+        'destination': {
+          apiQuery = () => this.props.redux.getMajors(e.target.name);
+        }; break;
+        'gpa': {
+          apiQuery = () => null;
+        }; break;
+        'major': {
+          apiQuery = () => this.props.redux.getCourses(
+            e
+          )
+        }; break;
+      }
 
-    const {
-      courses,
-      origins: originSchools,
-      destinations: destinationSchools,
-      majors: destinationMajors,
-    } = this.props;
+      this.setState({
+        [e.target.name]: e.target.value,
+      }, () => {
+        apiQuery();
+      });
+    }
 
-    return (
-      <div>
-        <div className="prefecture-section__container">
-          <label className="form__label" htmlFor="Prefecture">
-            Your Current College
-            <strong className="label__asterisk">*</strong>
-          </label>
-          <SelectValidation
-            errorClassName="form__error-blurb"
-            name="Origin School"
-            containerClassName="container__text-field"
-            validations={['required']}
-            value={originSchool}
-            onChange={this.handleOnChange}
-          >
-            <option value="">Choose A College</option>
-            {this.renderOptions(originSchools)};
-          </SelectValidation>
-        </div>
-        <br />
-        <div className="prefecture-section__container">
-          <label className="form__label" htmlFor="Prefecture">
-            Your Transfer University
-            <strong className="label__asterisk">*</strong>
-          </label>
-          <SelectValidation
-            errorClassName="form__error-blurb"
-            name="Origin School"
-            containerClassName="container__text-field"
-            validations={['required']}
-            value={originSchool}
-            onChange={this.handleOnChange}
-          >
-            <option value="">Choose A University</option>
-            {this.renderOptions(destinationSchools)};
-          </SelectValidation>
-        </div>
-        <br />
-        <div className="prefecture-section__container">
-          <label className="form__label" htmlFor="Prefecture">
-            Your Desired Major
-            <strong className="label__asterisk">*</strong>
-          </label>
-          <SelectValidation
-            errorClassName="form__error-blurb"
-            name="Origin School"
-            containerClassName="container__text-field"
-            validations={['required']}
-            value={originSchool}
-            onChange={this.handleOnChange}
-          >
-            <option value="">Choose A Major</option>
-            {this.renderOptions(destinationMajors)};
-          </SelectValidation>
-        </div>
-        <br />
-        <pre id="result">{courses}</pre>
-      </div>
-    );
-  }
-}
+    render() {
+      const {
+        originSchool,
+        // destinationSchool
+      } = this.state;
 
-export default connect(
-  ({ api: apiStatus }) => ({
-    apiStatus,
-  }),
-  dispatch => ({
-    redux: {
-      fetching: () => dispatch(apiActions.fetching()),
-      getOrigins: () => dispatch(gatewayActions.getOrigins()),
-      getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
-      getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
-    },
-  })
-)(Gateway);
-/*
-Control Flow:
-1. call getOrigins,
-2. saga calls the api.
-3. saga calls getOriginsSuccess
-4. call getDestinations,
-5. saga calls the api.
-6. saga calls getDestinationsSuccess
-7. call getCourses
-8. saga calls api.
-9. saga calls getCoursesSuccess
-10. redirect page.
+      const {
+        courses,
+        origins: originSchools,
+        destinations: destinationSchools,
+        majors: destinationMajors,
+      } = this.props;
 
-*/
+      return (
+        <div>
+          <div className="prefecture-section__container">
+            <label className="form__label" htmlFor="Prefecture">
+              Your Current College
+              <strong className="label__asterisk">*</strong>
+            </label>
+            <select
+              name="origin"
+              onChange={this.handleOnChange}
+              >
+                <option value="">Choose A College</option>
+                {this.renderOptions(originSchools)};
+              </select>
+            </div>
+            <br />
+            <div className="prefecture-section__container">
+              <label className="form__label" htmlFor="Prefecture">
+                Your Transfer University
+                <strong className="label__asterisk">*</strong>
+              </label>
+              <select
+                name="destination"
+                onChange={this.handleOnChange}
+                >
+                  <option value="">Choose A University</option>
+                  {this.renderOptions(destinationSchools)};
+                </select>
+              </div>
+              <br />
+              <div className="prefecture-section__container">
+                <label className="form__label" htmlFor="Prefecture">
+                  Your Desired Major
+                  <strong className="label__asterisk">*</strong>
+                </label>
+                <br />
+                <select
+                  name="major"
+                  onChange={this.handleOnChange}
+                  >
+                    <option value="">Choose A Major</option>
+                    {this.renderOptions(destinationMajors)};
+                  </select>
+                </div>
+                <br />
+                <pre id="result">{courses.length ? courses : originSchool}</pre>
+              </div>
+            );
+          }
+        }
+
+        export default connect(
+          ({ api: apiStatus }) => ({
+            apiStatus,
+          }),
+          dispatch => ({
+            redux: {
+              fetching: () => dispatch(apiActions.fetching()),
+              getOrigins: () => dispatch(gatewayActions.getOrigins()),
+              getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
+              getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
+            },
+          })
+        )(Gateway);
+        /*
+        Control Flow:
+        1. call getOrigins,
+        2. saga calls the api.
+        3. saga calls getOriginsSuccess
+        4. call getDestinations,
+        5. saga calls the api.
+        6. saga calls getDestinationsSuccess
+        7. call getCourses
+        8. saga calls api.
+        9. saga calls getCoursesSuccess
+        10. redirect page.
+
+        */
