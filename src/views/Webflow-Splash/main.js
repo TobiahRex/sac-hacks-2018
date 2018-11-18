@@ -1,6 +1,7 @@
 import React from 'react';
-import backgroundVideo from '../../assets/videos/background-video.mp4';
-import backgroundPoster from '../../assets/images/splash-background-video-poster.jpg';
+import './assets/css/style.webflow.css';
+// import backgroundVideo from '../../assets/videos/background-video.mp4';
+// import backgroundPoster from '../../assets/images/splash-background-video-poster.jpg';
 
 class Splash extends React.Component {
   render() {

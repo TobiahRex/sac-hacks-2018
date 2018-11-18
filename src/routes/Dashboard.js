@@ -1,21 +1,15 @@
-// import Title from '../views/Title/Title';
-import Splash from '../layouts/Splash/main.js';
-// import Cryptos from '../views/Cryptos/Cryptos';
+// import Splash from '../views/Splash/main';
+// import Splash from '../views/Splash/main';
+import Title from '../views/Title/Title';
 import Crud from '../views/Crud/Crud';
-// import Sunburst from '../views/Sunburst';
 import Sankey from '../views/Sankey';
 
 const dashboardRoutes = [
   {
     path: '/dashboard',
     name: 'Home',
-    component: Splash
+    component: Title
   },
-  // {
-  //   path: '/cryptos',
-  //   name: 'Cryptos',
-  //   component: Cryptos
-  // },
   {
     path: '/crud',
     name: 'Crud',
