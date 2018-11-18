@@ -88,71 +88,71 @@ class Gateway extends React.Component {
             <select
               name="origin"
               onChange={this.handleOnChange}
-              >
-                <option value="">Choose A College</option>
-                {this.renderOptions(originSchools)};
-              </select>
-            </div>
+            >
+              <option value="">Choose A College</option>
+              {this.renderOptions(originSchools)};
+            </select>
+          </div>
+          <br />
+          <div className="prefecture-section__container">
+            <label className="form__label" htmlFor="Prefecture">
+              Your Transfer University
+              <strong className="label__asterisk">*</strong>
+            </label>
+            <select
+              name="destination"
+              onChange={this.handleOnChange}
+            >
+              <option value="">Choose A University</option>
+              {this.renderOptions(destinationSchools)};
+            </select>
+          </div>
+          <br />
+          <div className="prefecture-section__container">
+            <label className="form__label" htmlFor="Prefecture">
+              Your Desired Major
+              <strong className="label__asterisk">*</strong>
+            </label>
             <br />
-            <div className="prefecture-section__container">
-              <label className="form__label" htmlFor="Prefecture">
-                Your Transfer University
-                <strong className="label__asterisk">*</strong>
-              </label>
-              <select
-                name="destination"
-                onChange={this.handleOnChange}
-                >
-                  <option value="">Choose A University</option>
-                  {this.renderOptions(destinationSchools)};
-                </select>
-              </div>
-              <br />
-              <div className="prefecture-section__container">
-                <label className="form__label" htmlFor="Prefecture">
-                  Your Desired Major
-                  <strong className="label__asterisk">*</strong>
-                </label>
-                <br />
-                <select
-                  name="major"
-                  onChange={this.handleOnChange}
-                  >
-                    <option value="">Choose A Major</option>
-                    {this.renderOptions(destinationMajors)};
-                  </select>
-                </div>
-                <br />
-                <pre id="result">{courses.length ? courses : originSchool}</pre>
-              </div>
-            );
-          }
-        }
+            <select
+              name="major"
+              onChange={this.handleOnChange}
+            >
+              <option value="">Choose A Major</option>
+              {this.renderOptions(destinationMajors)};
+            </select>
+          </div>
+          <br />
+          <pre id="result">{courses.length ? courses : originSchool}</pre>
+        </div>
+      );
+    }
+}
 
-        export default connect(
-          ({ api: apiStatus }) => ({
-            apiStatus,
-          }),
-          dispatch => ({
-            redux: {
-              fetching: () => dispatch(apiActions.fetching()),
-              getOrigins: () => dispatch(gatewayActions.getOrigins()),
-              getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
-              getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
-            },
-          })
-        )(Gateway);
-        /*
-        Control Flow:
-        1. call getOrigins,
-        2. saga calls the api.
-        3. saga calls getOriginsSuccess
-        4. call getDestinations,
-        5. saga calls the api.
-        6. saga calls getDestinationsSuccess
-        7. call getCourses
-        8. saga calls api.
-        9. saga calls getCoursesSuccess
-        10. redirect page.
+export default connect(
+  ({ api: apiStatus }) => ({
+    apiStatus,
+  }),
+  dispatch => ({
+    redux: {
+      fetching: () => dispatch(apiActions.fetching()),
+      getOrigins: () => dispatch(gatewayActions.getOrigins()),
+      getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
+      getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
+    },
+  })
+)(Gateway);
+/*
+Control Flow:
+1. call getOrigins,
+2. saga calls the api.
+3. saga calls getOriginsSuccess
+4. call getDestinations,
+5. saga calls the api.
+6. saga calls getDestinationsSuccess
+7. call getCourses
+8. saga calls api.
+9. saga calls getCoursesSuccess
+10. redirect page.
 
-        */
+*/
