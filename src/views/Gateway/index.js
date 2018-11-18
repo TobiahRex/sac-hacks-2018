@@ -20,19 +20,24 @@ class Gateway extends React.Component {
       {name}
     </option>));
 
-  
-
     render() {
       const {
+        courses,
         originSchool,
         destinationSchool
       } = this.state;
+
+      const {
+        originSchools,
+        destinationSchools,
+        destinationMajors,
+      } = this.props;
 
       return (
         <div>
           <div className="prefecture-section__container">
             <label className="form__label" htmlFor="Prefecture">
-              <IntlMsg id="checkout.shipping-address.prefecture" />&nbsp;
+              Your Current College
               <strong className="label__asterisk">*</strong>
             </label>
             <Validation.components.Select
@@ -42,18 +47,14 @@ class Gateway extends React.Component {
               validations={['required']}
               value={originSchool}
               onChange={this.handleOnChange}
-              >
-                <option value="">
-                  <IntlMsg id="checkout.shipping-address.prefecture.choose" />
-                </option>
-                {
-                  renderOptions(PrefectureConstants)
-                };
+            >
+                <option value="">Choose A Schoool</option>
+                {this.renderOptions(originSchools)};
               </Validation.components.Select>
             </div>
             <br/>
             <pre id="result" >
-
+              {courses}
             </pre>
           </div>
         );
