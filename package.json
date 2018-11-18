@@ -111,6 +111,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.1.0",
-    "reduxsauce": "^1.0.0"
+    "reduxsauce": "^1.0.0",
+    "seamless-immutable": "^7.1.4"
   }
 }

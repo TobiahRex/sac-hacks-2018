@@ -8,6 +8,7 @@ const { Types, Creators } = createActions({
   getDestinationsSuccess: ['destinations'],
   getMajorsSuccess: ['majors'],
   getCoursesSuccess: ['data'],
+  setOriginSchool: ['school'],
 });
 
 export const GatewayTypes = Types;
@@ -35,8 +36,14 @@ const getCoursesSuccess = (state, { data }) => ({
   data,
 });
 
+const setOriginSchool = (state, { school }) => ({
+  ...state,
+  school
+});
+
 export const gatewayReducer = createReducer(INITIAL_STATE, {
   [Types.GET_DESTINATIONS_SUCCESS]: getDestinationsSuccess,
   [Types.GET_MAJORS_SUCCESS]: getMajorsSuccess,
   [Types.GET_COURSES_SUCCESS]: getCoursesSuccess,
+  [Types.SET_ORIGIN_SCHOOL]: setOriginSchool,
 });
