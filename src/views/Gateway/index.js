@@ -1,7 +1,7 @@
 /* eslint-disable jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-kg';
 import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import gatewayActions from '../../redux/gateway';
@@ -134,11 +134,17 @@ class Gateway extends React.Component {
             alignItems: 'center',
           }}
           >
-            <h3>My Current School</h3>
+            <h3 style={{
+              fontStyle: 'italic',
+              color: 'grey',
+            }}
+            >
+              {'"My Current School"'}
+            </h3>
             <DropdownButton
               bsStyle="primary"
               bsSize="large"
-              title={originName || 'Choose College'}
+              title={originName || 'Current College'}
               key="origin-cologe-button"
               id="dropdown-basic-origin"
             >
@@ -161,7 +167,13 @@ class Gateway extends React.Component {
               height: 190,
             }}
             >
-              <h3>I know where I want to transfer</h3>
+              <h3 style={{
+                fontStyle: 'italic',
+                color: 'grey',
+              }}
+              >
+                {'"I want to transfer to"'}
+              </h3>
               <DropdownButton
                 bsStyle="primary"
                 bsSize="large"
@@ -171,7 +183,17 @@ class Gateway extends React.Component {
               >
                 {destinations.length ? this.renderOptions('destination', destinations) : ''};
               </DropdownButton>
-              <p>Choose a transfer school to show a list of majors</p>
+              <p style={{ color: 'grey' }}>Choose a transfer school to show a list of majors</p>
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              color: '#3472F7',
+            }}
+            >
+              <h3>
+                or
+              </h3>
             </div>
             <div style={{
               display: 'flex',
@@ -181,7 +203,13 @@ class Gateway extends React.Component {
               height: 190,
             }}
             >
-              <h3>I know what I want to study</h3>
+              <h3 style={{
+                fontStyle: 'italic',
+                color: 'grey',
+              }}
+              >
+                {'"I want to study"'}
+              </h3>
               <DropdownButton
                 bsStyle="primary"
                 bsSize="large"
@@ -191,7 +219,7 @@ class Gateway extends React.Component {
               >
                 {majors.length ? this.renderOptions('major', majors) : ''};
               </DropdownButton>
-              <p>
+              <p style={{ color: 'grey' }}>
                 Choose a major to show a list of Universities
               </p>
             </div>
