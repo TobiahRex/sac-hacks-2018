@@ -46,7 +46,9 @@ class Gateway extends React.Component {
     super(props);
 
     this.state = {
-      originSchool: 'Diablo Valley College',
+      origin: '',
+      destination: '',
+      major: '',
       // destinationSchool: 'UC Berkeley',
     };
   }

@@ -23,6 +23,8 @@ const createAPI = () => {
 
   const getDestinationCodes = (origin) => api.get(`/destination-codes?origin=${origin}`);
 
+  const getMajorCodes = (origin, destination) => api.get(`/major-codes?origin=${origin}&destination=${destination}`);
+
   // const createThing = thing => api.post('api/things', { name: thing.name });
   //
   // const removeThing = id => api.delete(`api/things/${id}`);
@@ -33,7 +35,8 @@ const createAPI = () => {
   // --------------------------------------------------------
   return {
     getOriginCodes,
-    getDestinationCodes
+    getDestinationCodes,
+    getMajorCodes,
     // removeThing,
     // editThing
   };

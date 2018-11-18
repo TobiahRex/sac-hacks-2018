@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 const { Types, Creators } = createActions({
   getOriginCodes: null,
   getDestinationCodes: ['originCode'],
-  getMajors: ['originCode', 'destinationCode'],
+  getMajorCodes: ['originCode', 'destinationCode'],
   getCourses: ['originCode', 'destinationCode', 'majorCode'],
 
   getDestinationCodesSuccess: ['destinations'],
