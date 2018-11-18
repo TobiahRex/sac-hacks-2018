@@ -4,6 +4,7 @@ import apiActions from '../../redux/api';
 
 export default function* create(api, { originCode, destinationCode }) {
   const response = yield call(() => api.getMajorCodes(originCode, destinationCode));
+  console.log('response.ok: ', response.ok);
 
   if (response.ok) {
     yield [

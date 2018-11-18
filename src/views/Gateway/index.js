@@ -1,6 +1,7 @@
 /* eslint-disable jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DropdownButton, MenuItem, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import gatewayActions from '../../redux/gateway';
@@ -23,7 +24,12 @@ class Gateway extends React.Component {
         name: string,
       })
     ),
-    majors: arrayOf(string),
+    majors: arrayOf(
+      shape({
+        code: string,
+        name: string,
+      })
+    ),
     apiStatus: shape({
       error: string,
       count: number,
@@ -92,11 +98,34 @@ class Gateway extends React.Component {
         courses,
         origins,
         destinations,
-        majors: destinationMajors,
+        majors,
       } = this.props;
 
       return (
         <div>
+          <div>
+            <DropdownButton
+              bsStyle="primary"
+              title="Your Current College"
+              key="origin-cologe-button"
+              id="dropdown-basic-origin"
+            >
+              <MenuItem eventKey="1">Action</MenuItem>
+              <MenuItem eventKey="2">Another action</MenuItem>
+              <MenuItem eventKey="3" active>
+                Active Item
+              </MenuItem>
+              <MenuItem divider />
+              <MenuItem eventKey="4">Separated link</MenuItem>
+            </DropdownButton>
+            <FormGroup controlId="formControlsSelect">
+              <ControlLabel>Select</ControlLabel>
+              <FormControl componentClass="select" placeholder="select">
+                <option value="select">select</option>
+                <option value="other">...</option>
+              </FormControl>
+            </FormGroup>
+          </div>
           <div className="prefecture-section__container">
             <label className="form__label" htmlFor="Prefecture">
               Your Current College
@@ -136,7 +165,7 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A Major</option>
-              {destinationMajors.length ? this.renderOptions(destinationMajors) : ''};
+              {majors.length ? this.renderOptions(majors) : ''};
             </select>
           </div>
           <br />
@@ -159,6 +188,7 @@ export default connect(
     apiStatus,
     origins: [...gateway.origins],
     destinations: [...gateway.destinations],
+    majors: [...gateway.majors],
   }),
   dispatch => ({
     redux: {
