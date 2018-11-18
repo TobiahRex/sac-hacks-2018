@@ -11,8 +11,18 @@ class Gateway extends React.Component {
   static propTypes = {
     showNotification: func.isRequired,
     courses: arrayOf(any),
-    originCodes: arrayOf(string),
-    destinations: arrayOf(string),
+    origins: arrayOf(
+      shape({
+        code: string,
+        name: string,
+      })
+    ),
+    destinations: arrayOf(
+      shape({
+        code: string,
+        name: string,
+      })
+    ),
     majors: arrayOf(string),
     apiStatus: shape({
       error: string,
@@ -21,14 +31,14 @@ class Gateway extends React.Component {
     }).isRequired,
     redux: shape({
       fetching: func.isRequired,
-      getOrigins: func.isRequired,
-      getDestinations: func.isRequired,
+      getOriginCodes: func.isRequired,
+      getDestinationCodes: func.isRequired,
       getCourses: func.isRequired
     }).isRequired
   };
   static defaultProps = {
     courses: [],
-    originCodes: [],
+    origins: [],
     destinations: [],
     majors: [],
   };
@@ -41,19 +51,21 @@ class Gateway extends React.Component {
     };
   }
 
-  renderOptions = options => options.map(({ name, code }) => (
-    <option key={Buffer.from(code, 'utf8').toString('base64')} value={code}>
+  renderOptions = options => options.map(({ name, code }, i) => (
+    <option key={Buffer.from(`${code}${i}`, 'utf8').toString('base64')} value={code}>
       {name}
     </option>));
 
     handleOnChange = e => {
+      const caller = e.target.name;
+      const callerValue = e.target.value;
       const { redux } = this.props;
       const { origin, destination, major } = this.state;
       let apiQuery = () => {};
 
-      switch (e.target.name) {
-        case 'origin': apiQuery = () => redux.getDestinations(e.target.value); break;
-        case 'destination': apiQuery = () => redux.getMajors(e.target.name); break;
+      switch (caller) {
+        case 'origin': apiQuery = () => redux.getDestinationCodes(callerValue); break;
+        case 'destination': apiQuery = () => redux.getMajorCodes(origin, destination); break;
         case 'major': apiQuery = () => redux.getCourses(origin, destination, major); break;
         default: break;
       }
@@ -67,14 +79,17 @@ class Gateway extends React.Component {
 
     render() {
       const {
-        originSchool,
+        origin,
+        destination,
+        major,
+        // courses
         // destinationSchool
       } = this.state;
 
       const {
         courses,
-        originCodes: originCodes,
-        destinations: destinationSchools,
+        origins,
+        destinations,
         majors: destinationMajors,
       } = this.props;
 
@@ -90,7 +105,7 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A College</option>
-              {this.renderOptions(originCodes)};
+              {origins.length ? this.renderOptions(origins) : ''};
             </select>
           </div>
           <br />
@@ -104,7 +119,7 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A University</option>
-              {this.renderOptions(destinationSchools)};
+              {destinations.length ? this.renderOptions(destinations) : ''};
             </select>
           </div>
           <br />
@@ -119,11 +134,19 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A Major</option>
-              {this.renderOptions(destinationMajors)};
+              {destinationMajors.length ? this.renderOptions(destinationMajors) : ''};
             </select>
           </div>
           <br />
-          <pre id="result">{courses.length ? courses : originSchool}</pre>
+          <pre id="result">
+            Origin: {origin}
+            <br />
+            Destination: {destination}
+            <br />
+            Major: {major}
+            <br />
+            Courses: {courses}
+          </pre>
         </div>
       );
     }
@@ -132,13 +155,15 @@ class Gateway extends React.Component {
 export default connect(
   ({ api: apiStatus, gateway }) => ({
     apiStatus,
-    originCodes: [...gateway.originCodes],
+    origins: [...gateway.origins],
+    destinations: [...gateway.destinations],
   }),
   dispatch => ({
     redux: {
       fetching: () => dispatch(apiActions.fetching()),
-      getOrigins: () => dispatch(gatewayActions.getOriginCodes()),
-      getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
+      getOriginCodes: () => dispatch(gatewayActions.getOriginCodes()),
+      getDestinationCodes: origin => dispatch(gatewayActions.getDestinationCodes(origin)),
+      getMajorCodes: (origin, destination) => dispatch(gatewayActions.getMajorCodes(origin, destination)),
       getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
     },
   })
@@ -148,7 +173,7 @@ Control Flow:
 1. call getOrigins,
 2. saga calls the api.
 3. saga calls getOriginsSuccess
-4. call getDestinations,
+4. call getdestinations,
 5. saga calls the api.
 6. saga calls getDestinationsSuccess
 7. call getCourses

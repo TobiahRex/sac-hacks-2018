@@ -3,20 +3,20 @@ import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
   getOriginCodes: null,
-  getDestinations: ['origin'],
-  getMajors: ['origin', 'destination'],
-  getCourses: ['origin', 'destination', 'major'],
+  getDestinationCodes: ['originCode'],
+  getMajors: ['originCode', 'destinationCode'],
+  getCourses: ['originCode', 'destinationCode', 'majorCode'],
 
-  getDestinationsSuccess: ['destinations'],
+  getDestinationCodesSuccess: ['destinations'],
   getMajorsSuccess: ['majors'],
   getCoursesSuccess: ['data'],
-  getOriginCodesSuccess: ['originCodes'],
+  getOriginCodesSuccess: ['origins'],
 });
 
 export const GatewayTypes = Types;
 export default Creators;
 export const INITIAL_STATE = Immutable({
-  originCodes: [],
+  origins: [],
   currentOrigin: null,
   destinations: [],
   majors: [],
@@ -24,7 +24,7 @@ export const INITIAL_STATE = Immutable({
   data: {},
 });
 
-const getDestinationsSuccess = (state, { destinations }) => ({
+const getDestinationCodesSuccess = (state, { destinations }) => ({
   ...state,
   destinations,
 });
@@ -39,13 +39,13 @@ const getCoursesSuccess = (state, { data }) => ({
   data,
 });
 
-const getOriginCodesSuccess = (state, { originCodes }) => ({
+const getOriginCodesSuccess = (state, { origins }) => ({
   ...state,
-  originCodes,
+  origins,
 });
 
 export const gatewayReducer = createReducer(INITIAL_STATE, {
-  [Types.GET_DESTINATIONS_SUCCESS]: getDestinationsSuccess,
+  [Types.GET_DESTINATION_CODES_SUCCESS]: getDestinationCodesSuccess,
   [Types.GET_MAJORS_SUCCESS]: getMajorsSuccess,
   [Types.GET_COURSES_SUCCESS]: getCoursesSuccess,
   [Types.GET_ORIGIN_CODES_SUCCESS]: getOriginCodesSuccess,
