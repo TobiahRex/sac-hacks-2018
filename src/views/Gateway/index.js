@@ -136,7 +136,7 @@ export default connect(
   dispatch => ({
     redux: {
       fetching: () => dispatch(apiActions.fetching()),
-      getOrigins: () => dispatch(gatewayActions.getOrigins()),
+      getOrigins: () => dispatch(gatewayActions.getOriginCodes()),
       getDestinations: origin => dispatch(gatewayActions.getDestinations(origin)),
       getCourses: (codes) => dispatch(gatewayActions.getCourses(codes.origin, codes.destination, codes.gpa)),
     },

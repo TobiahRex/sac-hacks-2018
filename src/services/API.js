@@ -19,21 +19,21 @@ const createAPI = () => {
   });
 
   // --------------------------------------------------------
-  const getAllThings = () => api.get('api/things/');
+  const getOriginCodes = () => api.get('/origin-codes');
 
-  const createThing = thing => api.post('api/things', { name: thing.name });
-
-  const removeThing = id => api.delete(`api/things/${id}`);
-
-  const editThing = thing =>
-    api.put(`api/things/${thing.id}`, { name: thing.name });
+  // const createThing = thing => api.post('api/things', { name: thing.name });
+  //
+  // const removeThing = id => api.delete(`api/things/${id}`);
+  //
+  // const editThing = thing =>
+  //   api.put(`api/things/${thing.id}`, { name: thing.name });
 
   // --------------------------------------------------------
   return {
-    getAllThings,
-    createThing,
-    removeThing,
-    editThing
+    getOriginCodes,
+    // createThing,
+    // removeThing,
+    // editThing
   };
 };
 

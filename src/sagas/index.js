@@ -8,15 +8,15 @@ import EditThing from './ThingSagas/EditThing';
 import RemoveThing from './ThingSagas/RemoveThing';
 
 // ----- Types ----- //
-import { ThingTypes } from '../redux/thing';
+import { GatewayTypes } from '../redux/gateway';
 
 const api = API.createAPI();
 
 export default function* rootSaga() {
   yield [
-    takeLatest(ThingTypes.GET_ALL_THINGS, GetAllThings, api),
-    takeLatest(ThingTypes.CREATE_THING, CreateThing, api),
-    takeLatest(ThingTypes.REMOVE_THING, RemoveThing, api),
-    takeLatest(ThingTypes.EDIT_THING, EditThing, api)
+    takeLatest(GatewayTypes.GET_ORIGIN_CODES, GetAllThings, api),
+    // takeLatest(ThingTypes.CREATE_THING, CreateThing, api),
+    // takeLatest(ThingTypes.REMOVE_THING, RemoveThing, api),
+    // takeLatest(ThingTypes.EDIT_THING, EditThing, api)
   ];
 }
