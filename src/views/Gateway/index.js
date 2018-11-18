@@ -46,23 +46,16 @@ class Gateway extends React.Component {
       {name}
     </option>));
 
-    handleOnChange = (e) => {
-      const apiQuery;
-      switch(e.target.name) {
-        'origin': {
-          apiQuery = () => this.props.redux.getDestinations(e.target.value);
-        }; break;
-        'destination': {
-          apiQuery = () => this.props.redux.getMajors(e.target.name);
-        }; break;
-        'gpa': {
-          apiQuery = () => null;
-        }; break;
-        'major': {
-          apiQuery = () => this.props.redux.getCourses(
-            e
-          )
-        }; break;
+    handleOnChange = e => {
+      const { redux } = this.props;
+      const { origin, destination, major } = this.state;
+      let apiQuery = () => {};
+
+      switch (e.target.name) {
+        case 'origin': apiQuery = () => redux.getDestinations(e.target.value); break;
+        case 'destination': apiQuery = () => redux.getMajors(e.target.name); break;
+        case 'major': apiQuery = () => redux.getCourses(origin, destination, major); break;
+        default: break;
       }
 
       this.setState({
@@ -70,7 +63,7 @@ class Gateway extends React.Component {
       }, () => {
         apiQuery();
       });
-    }
+    };
 
     render() {
       const {
