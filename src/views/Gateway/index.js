@@ -121,7 +121,7 @@ class Gateway extends React.Component {
       return (
         <div style={{
           width: '100%',
-          minHeight: '100vh',
+          minHeight: '90vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -132,7 +132,8 @@ class Gateway extends React.Component {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}>
+          }}
+          >
             <h3>My Current School</h3>
             <DropdownButton
               bsStyle="primary"
@@ -145,64 +146,58 @@ class Gateway extends React.Component {
             </DropdownButton>
           </div>
           <br />
-          <div>
-            <h3>I know where I want to transfer</h3>
-            <DropdownButton
-              bsStyle="primary"
-              bsSize="large"
-              title={destinationName || 'Choose University'}
-              key="origin-cologe-button"
-              id="dropdown-basic-origin"
+          <div style={{
+            marginTop: 80,
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '80%',
+          }}
+          >
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              height: 190,
+            }}
             >
-              {destinations.length ? this.renderOptions('destination', destinations) : ''};
-            </DropdownButton>
-            <p>Choose a transfer school to show a list of majors</p>
+              <h3>I know where I want to transfer</h3>
+              <DropdownButton
+                bsStyle="primary"
+                bsSize="large"
+                title={destinationName || 'Choose University'}
+                key="origin-cologe-button"
+                id="dropdown-basic-origin"
+              >
+                {destinations.length ? this.renderOptions('destination', destinations) : ''};
+              </DropdownButton>
+              <p>Choose a transfer school to show a list of majors</p>
+            </div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              height: 190,
+            }}
+            >
+              <h3>I know what I want to study</h3>
+              <DropdownButton
+                bsStyle="primary"
+                bsSize="large"
+                title={majorName || 'Choose A Major'}
+                key="origin-cologe-button"
+                id="dropdown-basic-origin"
+              >
+                {majors.length ? this.renderOptions('major', majors) : ''};
+              </DropdownButton>
+              <p>
+                Choose a major to show a list of Universities
+              </p>
+            </div>
           </div>
           <br />
-          <div>
-            <h3>I know what I want to study</h3>
-            <DropdownButton
-              bsStyle="primary"
-              bsSize="large"
-              title={majorName || 'Choose A Major'}
-              key="origin-cologe-button"
-              id="dropdown-basic-origin"
-            >
-              {majors.length ? this.renderOptions('major', majors) : ''};
-            </DropdownButton>
-            <p>
-              Choose a major to show a list of Universities
-            </p>
-          </div>
           <br />
-          {/* <div className="prefecture-section__container">
-            <label className="form__label" htmlFor="Prefecture">
-              Your Transfer University
-              <strong className="label__asterisk">*</strong>
-            </label>
-            <select
-              name="destination"
-              onChange={this.handleOnChange}
-            >
-              <option value="">Choose A University</option>
-              {destinations.length ? this.renderOptions('destination', destinations) : ''};
-            </select>
-          </div>
-          <br />
-          <div className="prefecture-section__container">
-            <label className="form__label" htmlFor="Prefecture">
-              Your Desired Major
-              <strong className="label__asterisk">*</strong>
-            </label>
-            <br />
-            <select
-              name="major"
-              onChange={this.handleOnChange}
-            >
-              <option value="">Choose A Major</option>
-              {majors.length ? this.renderOptions('major', majors) : ''};
-            </select>
-          </div> */}
           <br />
           <pre id="result">
             Origin: {origin}

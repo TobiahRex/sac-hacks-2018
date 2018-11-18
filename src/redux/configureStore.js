@@ -72,7 +72,7 @@ function configureStoreDev(initialState) {
   }
 
   store.dispatch(apiActions.fetching());
-  store.dispatch(gatewayActions.getOriginCodes());
+  // store.dispatch(gatewayActions.getOriginCodes());
 
   return {
     store,
