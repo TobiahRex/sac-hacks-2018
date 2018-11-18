@@ -14,6 +14,7 @@ import './assets/sass/light-bootstrap-dashboard.css'; //eslint-disable-line
 import './assets/css/demo.css';
 import './assets/css/pe-icon-7-stroke.css';
 import './assets/styles/style.scss'; //eslint-disable-line
+import './services/utils/formValidationRulesExtension';
 
 const { store, persistor } = configureStore();
 

@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
           <Header {...this.props} />
           <Switch>
             {dashboardRoutes.map((prop, key) => {
-              if (prop.name === 'Crud') {
+              if (['Crud', 'Gateway'].includes(prop.name)) {
                 return (
                   <Route
                     path={prop.path}

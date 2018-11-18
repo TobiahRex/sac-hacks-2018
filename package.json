@@ -113,6 +113,7 @@
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.1.0",
     "reduxsauce": "^1.0.0",
-    "seamless-immutable": "^7.1.4"
+    "seamless-immutable": "^7.1.4",
+    "validator": "^10.9.0"
   }
 }

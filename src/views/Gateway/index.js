@@ -94,7 +94,7 @@ class Gateway extends React.Component {
             onChange={this.handleOnChange}
           >
             <option value="">Choose A University</option>
-            {this.renderOptions(originSchools)};
+            {this.renderOptions(destinationSchools)};
           </SelectValidation>
         </div>
         <br />
@@ -112,7 +112,7 @@ class Gateway extends React.Component {
             onChange={this.handleOnChange}
           >
             <option value="">Choose A Major</option>
-            {this.renderOptions(originSchools)};
+            {this.renderOptions(destinationMajors)};
           </SelectValidation>
         </div>
         <br />
