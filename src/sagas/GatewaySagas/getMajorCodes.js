@@ -4,11 +4,10 @@ import apiActions from '../../redux/api';
 
 export default function* create(api, { originCode, destinationCode }) {
   const response = yield call(() => api.getMajorCodes(originCode, destinationCode));
-  console.log('response.ok: ', response.ok);
 
   if (response.ok) {
     yield [
-      put(gatewayActions.getMajorCodesSuccess(response.data.data.destinationSchools)),
+      put(gatewayActions.getMajorCodesSuccess(response.data.data.majors)),
       put(apiActions.apiSuccess()),
     ];
   } else {

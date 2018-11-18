@@ -1,7 +1,7 @@
 /* eslint-disable jsx-indent */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DropdownButton, MenuItem, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import apiActions from '../../redux/api';
 import gatewayActions from '../../redux/gateway';
@@ -59,28 +59,42 @@ class Gateway extends React.Component {
     };
   }
 
-  renderOptions = options => options.map(({ name, code }, i) => (
-    <option key={Buffer.from(`${code}${i}`, 'utf8').toString('base64')} value={code}>
+  renderOptions = (source, options) => options.map(({ name, code }, i) => (
+    <MenuItem
+      key={Buffer.from(`${code}${i}`, 'utf8').toString('base64')}
+      onClick={() => this.handleOnChange({
+        state: {
+          [source]: code,
+          [`${source}Name`]: name,
+        },
+        source,
+      })}
+    >
       {name}
-    </option>));
+    </MenuItem>));
 
-    handleOnChange = e => {
-      const caller = e.target.name;
-      const callerValue = e.target.value;
+    // {/* <option key={Buffer.from(`${code}${i}`, 'utf8').toString('base64')} value={code}>
+    //   {name}
+    // </option>)); */}
+  // renderOptions = options => options.map(({ name, code }, i) => (
+  //   <option key={Buffer.from(`${code}${i}`, 'utf8').toString('base64')} value={code}>
+  //     {name}
+  //   </option>));
+
+    handleOnChange = ({ state, source }) => {
       const { redux } = this.props;
-      const { origin, destination, major } = this.state;
+      const { origin, destination } = this.state;
+
       let apiQuery = () => {};
 
-      switch (caller) {
-        case 'origin': apiQuery = () => redux.getDestinationCodes(callerValue); break;
-        case 'destination': apiQuery = () => redux.getMajorCodes(origin, destination); break;
-        case 'major': apiQuery = () => redux.getCourses(origin, destination, major); break;
+      switch (source) {
+        case 'origin': apiQuery = () => redux.getDestinationCodes(state.origin); break;
+        case 'destination': apiQuery = () => redux.getMajorCodes(origin, state.destination); break;
+        case 'major': apiQuery = () => redux.getCourses(origin, destination, state.major); break;
         default: break;
       }
 
-      this.setState({
-        [e.target.name]: e.target.value,
-      }, () => {
+      this.setState(state, () => {
         apiQuery();
       });
     };
@@ -88,8 +102,11 @@ class Gateway extends React.Component {
     render() {
       const {
         origin,
+        originName,
         destination,
+        destinationName,
         major,
+        majorName,
         // courses
         // destinationSchool
       } = this.state;
@@ -102,45 +119,63 @@ class Gateway extends React.Component {
       } = this.props;
 
       return (
-        <div>
-          <div>
+        <div style={{
+          width: '100%',
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+        >
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+            <h3>My Current School</h3>
             <DropdownButton
               bsStyle="primary"
-              title="Your Current College"
+              bsSize="large"
+              title={originName || 'Choose College'}
               key="origin-cologe-button"
               id="dropdown-basic-origin"
             >
-              <MenuItem eventKey="1">Action</MenuItem>
-              <MenuItem eventKey="2">Another action</MenuItem>
-              <MenuItem eventKey="3" active>
-                Active Item
-              </MenuItem>
-              <MenuItem divider />
-              <MenuItem eventKey="4">Separated link</MenuItem>
+              {origins.length ? this.renderOptions('origin', origins) : ''};
             </DropdownButton>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Select</ControlLabel>
-              <FormControl componentClass="select" placeholder="select">
-                <option value="select">select</option>
-                <option value="other">...</option>
-              </FormControl>
-            </FormGroup>
-          </div>
-          <div className="prefecture-section__container">
-            <label className="form__label" htmlFor="Prefecture">
-              Your Current College
-              <strong className="label__asterisk">*</strong>
-            </label>
-            <select
-              name="origin"
-              onChange={this.handleOnChange}
-            >
-              <option value="">Choose A College</option>
-              {origins.length ? this.renderOptions(origins) : ''};
-            </select>
           </div>
           <br />
-          <div className="prefecture-section__container">
+          <div>
+            <h3>I know where I want to transfer</h3>
+            <DropdownButton
+              bsStyle="primary"
+              bsSize="large"
+              title={destinationName || 'Choose University'}
+              key="origin-cologe-button"
+              id="dropdown-basic-origin"
+            >
+              {destinations.length ? this.renderOptions('destination', destinations) : ''};
+            </DropdownButton>
+            <p>Choose a transfer school to show a list of majors</p>
+          </div>
+          <br />
+          <div>
+            <h3>I know what I want to study</h3>
+            <DropdownButton
+              bsStyle="primary"
+              bsSize="large"
+              title={majorName || 'Choose A Major'}
+              key="origin-cologe-button"
+              id="dropdown-basic-origin"
+            >
+              {majors.length ? this.renderOptions('major', majors) : ''};
+            </DropdownButton>
+            <p>
+              Choose a major to show a list of Universities
+            </p>
+          </div>
+          <br />
+          {/* <div className="prefecture-section__container">
             <label className="form__label" htmlFor="Prefecture">
               Your Transfer University
               <strong className="label__asterisk">*</strong>
@@ -150,7 +185,7 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A University</option>
-              {destinations.length ? this.renderOptions(destinations) : ''};
+              {destinations.length ? this.renderOptions('destination', destinations) : ''};
             </select>
           </div>
           <br />
@@ -165,9 +200,9 @@ class Gateway extends React.Component {
               onChange={this.handleOnChange}
             >
               <option value="">Choose A Major</option>
-              {majors.length ? this.renderOptions(majors) : ''};
+              {majors.length ? this.renderOptions('major', majors) : ''};
             </select>
-          </div>
+          </div> */}
           <br />
           <pre id="result">
             Origin: {origin}
